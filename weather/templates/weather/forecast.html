@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Forecast</title>
+    <style>
+        /* CSS styling for input section */
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .input-container label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .input-container input[type="text"],
+        .input-container select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* CSS styling for output section */
+        .card {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        .card p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather Forecast</h1>
+    <div class="input-container">
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude" required>
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude" required>
+        <label for="detailing-type">Detailing Type:</label>
+        <select id="detailing-type" name="detailing-type">
+            <option value="minute">Minute Forecast for 1 hour</option>
+            <option value="hourly">Hourly Forecast for 48 hours</option>
+            <option value="daily">Daily Forecast for 7 days</option>
+        </select>
+        <button type="submit">Get Forecast</button>
+    </div>
+    <div id="forecast-data"></div>
+
+    <script>
+        // JavaScript code for fetching weather data
+        document.querySelector('button').addEventListener('click', function() {
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+            const detailingType = document.getElementById('detailing-type').value;
+
+            const forecastDataDiv = document.getElementById('forecast-data');
+            forecastDataDiv.innerHTML = '';
+
+            fetch(`/weather-forecast/?lat=${latitude}&lon=${longitude}&detailing_type=${detailingType}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        forecastDataDiv.innerHTML = `<p>${data.error}</p>`;
+                    } else {
+                        // Present the weather data in cards
+                        const cardHTML = `
+                            <div class="card">
+                                <h2>${data.name}</h2>
+                                <p><strong>Latitude:</strong> ${data.coord.lat}</p>
+                                <p><strong>Longitude:</strong> ${data.coord.lon}</p>
+                                <p><strong>Weather:</strong> ${data.weather[0].description}</p>
+                                <p><strong>Temperature:</strong> ${data.main.temp} &#8451;</p>
+                                <p><strong>Feels Like:</strong> ${data.main.feels_like} &#8451;</p>
+                                <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
+                                <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+                            </div>
+                        `;
+
+                        forecastDataDiv.innerHTML = cardHTML;
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    forecastDataDiv.innerHTML = '<p>Failed to fetch weather data.</p>';
+                });
+        });
+    </script>
+</body>
+</html>
