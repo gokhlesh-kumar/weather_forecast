@@ -23,3 +23,6 @@ The frontend of the application is built using HTML, CSS, and JavaScript. It pro
 The backend of the application is developed using the Django framework in Python. It handles the API requests, data retrieval and storage, and communicates with the OpenWeatherMap API to fetch weather data. The local database stores the weather forecast data and is updated as needed.
 
 Overall, the Weather Forecast Application provides users with an easy and efficient way to obtain accurate weather forecasts for specific locations, with the ability to choose the level of detail required. It combines the power of an external weather API with local data storage for enhanced performance and flexibility.
+
+![Weather](https://github.com/gokhlesh-kumar/weather_forecast/assets/104709144/65ae4487-c54d-4088-8982-621618d7db5b)
+
