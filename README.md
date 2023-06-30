@@ -3,6 +3,8 @@
 The Weather Forecast Application is a web-based application that allows users to retrieve the weather forecast for a specific location based on latitude and longitude coordinates. 
 The application utilizes the OpenWeatherMap API to fetch weather data and provides users with different options for detailing the forecast.
 
+https://openweathermap.org/api/one-call-api
+
 Key Features:
 
 User Input: Users can enter the latitude and longitude coordinates of the desired location through an input form.
