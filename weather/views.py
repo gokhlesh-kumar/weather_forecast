@@ -4,10 +4,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.utils import timezone
 from .models import WeatherForecast
+from django.conf import settings
+
 import requests
 import datetime
 
-OPENWEATHERMAP_API_KEY = 'a8fb7a7d3fc6fbc63c60c07f6d114787'
+OPENWEATHERMAP_API_KEY = settings.API
 DATA_FRESHNESS_THRESHOLD = datetime.timedelta(minutes=10)
 
 def get_weather_forecast(request):
